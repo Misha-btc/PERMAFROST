@@ -2,7 +2,7 @@
 
 <img src="src/brick-firn.svg" width="120" align="right" alt="The firn brick — PERMAFROST logo">
 
-A perpetual liquidity vault — a tontine machine on ALKANES: a wrapper
+A perpetual vault — a tontine machine on ALKANES: a wrapper
 that adds hold-rewarding terms to any fungible alkane token. One share,
 no deadlines: enter at the rate, exits pay a tithe, the tithe drips
 back to those who stay. Immutable: no proxy, no admin, no protocol
