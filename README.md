@@ -2,10 +2,11 @@
 
 <img src="src/brick-firn.svg" width="120" align="right" alt="The firn brick — PERMAFROST logo">
 
-A perpetual liquidity vault — a tontine machine on ALKANES. Wraps any
-alkane token (canonically the BTCUSD LP) into a single share with no
-terms: enter at the rate, exits pay a tithe, the tithe drips back to
-those who stay. Immutable: no proxy, no admin, no protocol fee.
+A perpetual liquidity vault — a tontine machine on ALKANES: a wrapper
+that adds hold-rewarding terms to any fungible alkane token. One share,
+no deadlines: enter at the rate, exits pay a tithe, the tithe drips
+back to those who stay. Immutable: no proxy, no admin, no protocol
+fee.
 
 Companion documents: whitepaper v0.16, invariant specification v0.5+.
 
@@ -14,7 +15,7 @@ Companion documents: whitepaper v0.16, invariant specification v0.5+.
 State: `L` (the vault's underlying, a storage counter), `B` (the pot),
 `S` (shares), `h₀` (drip anchor). Share rate `c = (L − B) / S`.
 Instance parameters: `I` — blocks per drip, `P` — drips to empty the
-pot (canonically 144 and 365).
+pot.
 
 ```
 release (the first step of every mutation):
@@ -24,9 +25,8 @@ exit b:     W = ⌊b·(L−B)/S⌋ ;  π = ⌈p·W⌉ ;  payout = W − π
             L ← L − payout ;  B ← B + π
 ```
 
-- Deposits and exits do not move the rate; the underlying's own yield
-  (for the canonical LP — pool fees inside the token) and the drips push
-  it up; nothing pushes it down.
+- Deposits and exits do not move the rate; the underlying's own yield,
+  if any, and the drips push it up; nothing pushes it down.
 - The last exit follows the common rule; the pot survives an exodus as a
   dowry: while only dead shares stand, the release is frozen (epochs are
   consumed, the pot stays whole) and thaws with the first new depositor.
@@ -62,7 +62,8 @@ symbol, interval, periods]`.
 
 - `name`/`symbol` — strings of ≤ 16 bytes packed into a u128 as LE bytes
   (the alkanes standard; zero bytes are dropped).
-- Canon: `penalty_bps = 1000` (10%), `interval = 144` (Bitcoin's day),
+- Reference configuration: `penalty_bps = 1000` (10%),
+  `interval = 144` (Bitcoin's day),
   `periods = 365` (the tithe arrives within a year). Bounds:
   `bps ≤ 10000`, `interval ≥ 1`, `periods ≥ 1`.
 - A shorter horizon weakens the forfeit: an exiter loses on average
@@ -96,6 +97,9 @@ integer replica (`Mirror`) — for equality, not tolerance.
 - **Underlying sent by edict outside the opcodes is lost forever** —
   there is no sweep and no admin. Tribute must use
   DonatePot/DonateBoost.
+- Shares are fungible and carry no per-position state — no tenure, no
+  vesting, no per-holder accounting. Anything position-scoped is a
+  different contract.
 - Always set pointer/refund (`:v0:v0`) in cellpacks so reverts refund
   the tokens.
 - Deposit/Withdraw consume the **entire** attached transfer of the
