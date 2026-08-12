@@ -1,12 +1,10 @@
 //! Self-contained test suite for the PERMAFROST vault.
 //!
-//! Runs on the wasm32 target only (same flow as the fire root harness):
-//!   cargo build --release --target wasm32-unknown-unknown -p permafrost
-//!   cp target/wasm32-unknown-unknown/release/permafrost.wasm \
-//!      alkanes/permafrost/src/tests/wasm/
-//!   cargo test -p permafrost --target wasm32-unknown-unknown
-//!
-//! `./scripts/build-wasms.sh` refreshes the vendored wasm automatically.
+//! Runs on the wasm32 target only: the tests deploy the vendored
+//! `wasm/permafrost.wasm` into an in-memory metashrew VM and drive it
+//! through real blocks. Build the release WASM and copy it into
+//! `src/tests/wasm/` before the first run — the exact commands live in
+//! README.md ("Build & test").
 
 #![allow(dead_code)]
 

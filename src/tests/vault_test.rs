@@ -1,4 +1,4 @@
-//! # PERMAFROST integration: perpetual LP vault (tontine machine, spec v0.5)
+//! # PERMAFROST integration: perpetual vault (a tontine)
 //!
 //! A `Mirror` struct replicates the contract's integer state machine
 //! (including the fixed-point drip) so every on-chain state is asserted
@@ -49,7 +49,7 @@ use wasm_bindgen_test::wasm_bindgen_test;
 
 const MOCK_UNDERLYING_TX: u128 = 0xa10;
 const VAULT_SLOT: u128 = 0xf057;
-const PENALTY_BPS: u128 = 1000; // the canonical 10% tithe
+const PENALTY_BPS: u128 = 1000; // the reference 10% tithe
 const BPS: u128 = 10_000;
 const DEAD_SHARES: u128 = 1000;
 const DRIP_INTERVAL: u64 = 144;
@@ -388,7 +388,7 @@ fn setup_vault(start_height: u32, lp_units: u128) -> Result<(OutPoint, u32)> {
 #[wasm_bindgen_test]
 fn permafrost_neutrality_and_flat_price() -> Result<()> {
     clear_test_environment();
-    test_log!("\n=== PERMAFROST v0.5: neutrality of deposits AND exits, flat price ===");
+    test_log!("\n=== PERMAFROST: neutrality of deposits AND exits, flat price ===");
 
     let mut h: u32 = 890_000;
     // 100 + 36.5 + 26 = 162.5 LP-units of 8-decimal scale (chosen so every
@@ -492,7 +492,7 @@ fn permafrost_neutrality_and_flat_price() -> Result<()> {
 #[wasm_bindgen_test]
 fn permafrost_drip_and_last_exit() -> Result<()> {
     clear_test_environment();
-    test_log!("\n=== PERMAFROST v0.5: the drip, e^-1 over a year, exodus and dowry ===");
+    test_log!("\n=== PERMAFROST: the drip, e^-1 over a year, exodus and dowry ===");
 
     let mut h: u32 = 891_000;
     // 100 + 36.5 + 10 LP for the vault + 0.01 + 0.01 kept for the revival
@@ -664,7 +664,7 @@ fn permafrost_drip_and_last_exit() -> Result<()> {
 #[wasm_bindgen_test]
 fn permafrost_donate_and_eternity() -> Result<()> {
     clear_test_environment();
-    test_log!("\n=== PERMAFROST v0.5: tribute via the pot, fixpoint power at giant e ===");
+    test_log!("\n=== PERMAFROST: tribute via the pot, fixpoint power at giant e ===");
 
     let mut h: u32 = 892_000;
     // 100 (genesis) + 36.5 (pre-genesis tribute) + 3.65 (live tribute)
@@ -871,7 +871,7 @@ fn measure_withdraw_fuel(height: u64, shares: u128) -> Result<u64> {
 #[wasm_bindgen_test]
 fn permafrost_release_fuel() -> Result<()> {
     clear_test_environment();
-    test_log!("\n=== PERMAFROST v0.5: release fuel across quiet-period magnitudes ===");
+    test_log!("\n=== PERMAFROST: release fuel across quiet-period magnitudes ===");
 
     // Regtest per-tx minimum fuel — every op must fit even after eternity.
     const FUEL_CAP: u64 = 3_500_000;

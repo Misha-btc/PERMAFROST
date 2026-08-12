@@ -31,7 +31,7 @@ pub fn get_permafrost_wasm_bytes() -> &'static [u8] {
 
 /// Mintable test token (fire-master-auth built as a generic token: init
 /// opcode 0 mints `units` of itself to the deploy outpoint). Stands in for
-/// the BTCUSD LP.
+/// the underlying token.
 pub fn get_mock_token_wasm_bytes() -> &'static [u8] {
     include_bytes!("./wasm/fire_master_auth.wasm")
 }

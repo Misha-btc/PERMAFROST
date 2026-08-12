@@ -1,4 +1,4 @@
-//! PERMAFROST — a perpetual vault for any alkane token (a tontine).
+//! PERMAFROST — a perpetual vault for any fungible alkane token (a tontine).
 //! Deposits mint the vault share at the current rate; exits pay a tithe
 //! into THE POT; the pot drips back to those who stay. Immutable: no
 //! proxy, no admin, no protocol fee. Cloneable: each instance binds its
@@ -12,7 +12,7 @@
 //! the runtime balance), B (the pot), S (shares), h₀ (drip anchor).
 //! Share rate c = (L − B)/S. Per-instance parameters, immutable after
 //! init: tithe p (bps), drip interval I (blocks), release horizon P
-//! (drips). The canonical instance is 10%, 144, 365.
+//! (drips). The reference configuration is 10%, 144, 365.
 //!
 //! Semantics:
 //! - release — the first state step of every mutating op:
@@ -61,7 +61,7 @@ use std::sync::Arc;
 
 type U256 = Uint<256, 4>;
 
-/// Basis-point denominator: penalty_bps = 1000 → the canonical 10% tithe.
+/// Basis-point denominator: penalty_bps = 1000 → the reference 10% tithe.
 const BPS: u128 = 10_000;
 
 /// Genesis shares burned on the first deposit. Never circulate, keep S > 0
@@ -91,8 +91,8 @@ impl AlkaneResponder for Permafrost {}
 #[derive(MessageDispatch)]
 enum PermafrostMessage {
     /// One-time setup: bind the underlying token; fix the tithe rate, the
-    /// drip cadence (blocks per drip, canonically 144) and the release
-    /// horizon (drips to empty the pot ~once, canonically 365); set the
+    /// drip cadence (blocks per drip; reference: 144) and the release
+    /// horizon (drips to empty the pot ~once; reference: 365); set the
     /// share token's name/symbol (one u128 each, LE bytes, the standard
     /// alkanes packing) — all immutable afterwards
     #[opcode(0)]
@@ -113,7 +113,7 @@ enum PermafrostMessage {
     #[opcode(2)]
     Withdraw,
 
-    /// Donate the underlying into the pot — the canonical tribute road: drips to
+    /// Donate the underlying into the pot — the default tribute road: drips to
     /// standers over the year (L += d, B += d; the rate does not jump)
     #[opcode(3)]
     DonatePot,
@@ -179,12 +179,12 @@ enum PermafrostMessage {
     #[returns(u128)]
     GetPotAnchor,
 
-    /// Get the drip interval in blocks (canonically 144)
+    /// Get the drip interval in blocks (reference: 144)
     #[opcode(110)]
     #[returns(u128)]
     GetDripInterval,
 
-    /// Get the release horizon in drips (canonically 365)
+    /// Get the release horizon in drips (reference: 365)
     #[opcode(111)]
     #[returns(u128)]
     GetReleasePeriods,
@@ -431,7 +431,7 @@ impl Permafrost {
     /// Pull the underlying transfer out of the incoming parcel. Returns the
     /// amount and a response pre-filled with every OTHER incoming token
     /// refunded (nothing but the underlying is ever consumed) and
-    /// data = amount (u128 LE); callers may extend both.
+    /// data = amount (u128 LE); callers may extend or overwrite both.
     fn take_underlying(&self, context: &Context) -> Result<(u128, CallResponse)> {
         let underlying = self.underlying()?;
         let amount = context
