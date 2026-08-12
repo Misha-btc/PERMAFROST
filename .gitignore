@@ -1,0 +1,8 @@
+target/
+.DS_Store
+
+# The vault's own test WASM is a build artifact, reproducible from this
+# repo (see README "Build & test"). fire_master_auth.wasm stays committed:
+# it is an external test fixture (the mock underlying token, built from
+# the subfrost/fire monorepo) and cannot be rebuilt from here.
+src/tests/wasm/permafrost.wasm

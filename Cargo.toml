@@ -1,0 +1,36 @@
+[package]
+name = "permafrost"
+version = "0.1.0"
+edition = "2021"
+description = "PERMAFROST — a perpetual liquidity vault (tontine) on ALKANES"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# Pinned to the same alkanes-rs / metashrew revisions the contract was
+# developed and tested against. Update deliberately, re-running the full
+# test suite.
+[dependencies]
+alkanes-support = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb" }
+alkanes-runtime = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb" }
+metashrew-support = { git = "https://github.com/sandshrewmetaprotocols/metashrew" }
+anyhow = "1.0.94"
+ruint = "1.13.1"
+
+[dev-dependencies]
+alkanes = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb", features = [
+    "test-utils",
+] }
+protorune = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb", features = [
+    "test-utils",
+] }
+protorune-support = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb" }
+ordinals = { git = "https://github.com/kungfuflex/alkanes-rs", rev = "550aea1a38c8b5299b8adc6df49d2e27569613eb" }
+metashrew-core = { git = "https://github.com/sandshrewmetaprotocols/metashrew", features = [
+    "test-utils",
+] }
+bitcoin = { version = "0.32.4", features = ["rand"] }
+wasm-bindgen = "0.2.100"
+wasm-bindgen-test = "=0.3.50"
+web-sys = { version = "0.3", features = ["console"] }

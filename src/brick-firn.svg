@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.8 24" role="img" aria-label="A brick cut into layers: fresh snow on top, dense firn below">
+  <title>ICE AGE — the firn brick</title>
+  <polygon points="8.9,2 22.8,10 15.9,14 2,6" fill="#B5EDFF"/>
+  <polygon points="2,6 15.9,14 15.9,17.4 2,9.4" fill="#99E9FF"/>
+  <polygon points="22.8,10 22.8,13.4 15.9,17.4 15.9,14" fill="#4DD8FF"/>
+  <polygon points="2,9.4 15.9,17.4 15.9,20 2,12" fill="#4DD8FF"/>
+  <polygon points="22.8,13.4 22.8,16 15.9,20 15.9,17.4" fill="#00C8FF"/>
+  <polygon points="2,12 15.9,20 15.9,22 2,14" fill="#00C8FF"/>
+  <polygon points="22.8,16 22.8,18 15.9,22 15.9,20" fill="#008CB3"/>
+</svg>
