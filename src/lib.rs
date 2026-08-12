@@ -4,9 +4,8 @@
 //! proxy, no admin, no protocol fee. Cloneable: each instance binds its
 //! underlying, parameters, name and logo at initialization.
 //!
-//! This header states only what the code must uphold. Usage, the opcode
-//! table and deploy notes live in README.md; the product story in the
-//! whitepaper; proofs in the invariant spec.
+//! This header states only what the code must uphold — usage, the opcode
+//! table and deploy notes live in README.md.
 //!
 //! State: L (vault liquidity — a storage counter of the underlying, not
 //! the runtime balance), B (the pot), S (shares), h₀ (drip anchor).

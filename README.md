@@ -8,8 +8,6 @@ no deadlines: enter at the rate, exits pay a tithe, the tithe drips
 back to those who stay. Immutable: no proxy, no admin, no protocol
 fee.
 
-Companion documents: whitepaper v0.16, invariant specification v0.5+.
-
 ## Mechanics
 
 State: `L` (the vault's underlying, a storage counter), `B` (the pot),
