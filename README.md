@@ -68,6 +68,26 @@ symbol, interval, periods]`.
   `periods` drips of other people's pot. Drip sniping stays dead as long
   as `pot/P ≪ penalty·vault`.
 
+## Deploying the SUBFROST flagship
+
+Notes for the flagship instance; none of this is enforced by the code,
+which wraps whatever it is given.
+
+- The flagship wraps the existing BTCUSD (frBTC/frUSD) pool's LP token,
+  reference configuration, no changes to either contract.
+- **`DonatePot` is the yield channel.** The frUSD reserve earns real
+  yield off-chain; a monthly keeper converts the harvested yield into LP
+  tokens and donates it via opcode 3, so it drips to all standers
+  alongside the tithes. The drip is what makes a public donation
+  schedule safe: there is nothing to snipe (see sharp edges). The keeper
+  must use the opcode, never a bare edict, and always set
+  pointer/refund.
+- `DonateBoost` is reserved for one-off campaign moments, submitted
+  privately per the sharp edges.
+- Campaign accounting is off-chain: shares carry no per-position state,
+  so a points season accrues by LP-days over share balances via an
+  indexer, and reward vesting has no on-chain hook in this contract.
+
 ## Build & test
 
 Prerequisites: Rust with the `wasm32-unknown-unknown` target and
