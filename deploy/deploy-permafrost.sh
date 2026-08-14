@@ -11,7 +11,7 @@
 #   [0, underlying_block, underlying_tx, penalty_bps, name, symbol, interval, periods]
 #   penalty_bps = 1000  (10% tithe)
 #   name  = "PERMAFROST" packed u128 LE = 398215580027291461371216
-#   symbol= "FIRN"       packed u128 LE = 1314015558
+#   symbol= "FROST"      packed u128 LE = 362858049094
 #   interval = 144 (one drip per Bitcoin day), periods = 365 (the horizon)
 #
 # ── VERIFY BEFORE MAINNET ──────────────────────────────────────────────
@@ -38,7 +38,7 @@ FEE_RATE="${FEE_RATE:-2}"
 SLOT=365
 PENALTY_BPS=1000
 NAME_U128=398215580027291461371216   # "PERMAFROST"
-SYMBOL_U128=1314015558               # "FIRN"
+SYMBOL_U128=362858049094               # "FROST"
 INTERVAL=144
 PERIODS=365
 
@@ -102,6 +102,6 @@ MINE_FLAG=""
 echo
 echo "post-deploy checks:"
 echo "  name:   simulate 4:${SLOT} [99]  -> 'PERMAFROST'"
-echo "  symbol: simulate 4:${SLOT} [100] -> 'FIRN'"
+echo "  symbol: simulate 4:${SLOT} [100] -> 'FROST'"
 echo "  params: simulate 4:${SLOT} [103] -> 1000; [110] -> 144; [111] -> 365"
 echo "  underlying: simulate 4:${SLOT} [104] -> ${UNDERLYING_BLOCK}:${UNDERLYING_TX}"
