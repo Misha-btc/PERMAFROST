@@ -31,7 +31,7 @@ set -euo pipefail
 
 CLI="${CLI:-$HOME/GitHub/alkanes-rs/target/release/alkanes-cli}"
 PROVIDER="${PROVIDER:-subfrost-regtest}"        # switch to mainnet deliberately
-WALLET="${WALLET:-$HOME/.alkanes/wallet.json}"
+WALLET="${WALLET:-$HOME/.alkanes/permafrost-deploy.json}"   # fresh deploy-only keystore; pass --passphrase at run time
 WASM="${WASM:-$(dirname "$0")/../target/wasm32-unknown-unknown/release/permafrost.wasm}"
 FEE_RATE="${FEE_RATE:-2}"
 
