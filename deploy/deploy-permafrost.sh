@@ -66,7 +66,19 @@ case "$PROVIDER" in
   subfrost-regtest) probe_slot "https://regtest.subfrost.io/v4/subfrost" ;;
 esac
 
-[ -f "$WASM" ] || { echo "wasm not found: $WASM (build first: cargo build --release --target wasm32-unknown-unknown, CC=brew llvm clang on macOS)"; exit 1; }
+# ── Anonymous build ────────────────────────────────────────────────────
+# Release wasm embeds absolute source paths in panic strings (home dir,
+# cargo registry). Build with path remapping so the on-chain binary
+# carries no identifying paths, then verify before broadcasting.
+build_anon() {
+  RUSTFLAGS="--remap-path-prefix=$HOME/.cargo=/cargo --remap-path-prefix=$(pwd)=/build --remap-path-prefix=$HOME=/anon" \
+    cargo build --release --target wasm32-unknown-unknown
+}
+[ -f "$WASM" ] || { echo "wasm not found: $WASM — run build_anon (macOS: CC=/opt/homebrew/opt/llvm/bin/clang AR=llvm-ar)"; exit 1; }
+if strings "$WASM" | grep -qE "/Users/|/home/"; then
+  echo "!! wasm embeds user paths — rebuild with build_anon (path remapping) before deploying"
+  exit 1
+fi
 
 CELLPACK="[3,${SLOT},0,${UNDERLYING_BLOCK},${UNDERLYING_TX},${PENALTY_BPS},${NAME_U128},${SYMBOL_U128},${INTERVAL},${PERIODS}]:v0:v0"
 echo "provider:  $PROVIDER"
