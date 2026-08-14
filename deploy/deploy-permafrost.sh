@@ -11,7 +11,7 @@
 #   [0, underlying_block, underlying_tx, penalty_bps, name, symbol, interval, periods]
 #   penalty_bps = 1000  (10% tithe)
 #   name  = "PERMAFROST" packed u128 LE = 398215580027291461371216
-#   symbol= "FROST"      packed u128 LE = 362858049094
+#   symbol= "FROST"      packed u128 LE = 362174960198
 #   interval = 144 (one drip per Bitcoin day), periods = 365 (the horizon)
 #
 # ── VERIFY BEFORE MAINNET ──────────────────────────────────────────────
@@ -38,7 +38,7 @@ FEE_RATE="${FEE_RATE:-2}"
 SLOT=365
 PENALTY_BPS=1000
 NAME_U128=398215580027291461371216   # "PERMAFROST"
-SYMBOL_U128=362858049094               # "FROST"
+SYMBOL_U128=362174960198               # "FROST"
 INTERVAL=144
 PERIODS=365
 
