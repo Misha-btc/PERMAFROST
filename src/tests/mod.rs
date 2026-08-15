@@ -8,6 +8,7 @@
 
 #![allow(dead_code)]
 
+pub mod deploy_rehearsal;
 pub mod helpers;
 pub mod vault_test;
 
