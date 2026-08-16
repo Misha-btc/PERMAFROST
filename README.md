@@ -75,6 +75,9 @@ which wraps whatever it is given.
 
 - The flagship wraps the existing BTCUSD (frBTC/frUSD) pool's LP token,
   reference configuration, no changes to either contract.
+- The share token is named **PERMAFROST** with symbol **cBTCUSD** (both
+  are Initialize args, packed little-endian u128: name
+  `398215580027291461371216`, symbol `19231924083245667`).
 - **`DonatePot` is the yield channel.** The frUSD reserve earns real
   yield off-chain; a monthly keeper converts the harvested yield into LP
   tokens and donates it via opcode 3, so it drips to all standers
